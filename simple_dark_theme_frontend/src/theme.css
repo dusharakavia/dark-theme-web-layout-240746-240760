@@ -1,0 +1,29 @@
+:root {
+  /*
+    Theme-ready structure:
+    - All app colors should come from these CSS variables.
+    - To support multiple themes later, define another selector (e.g. [data-theme="dark"]) overriding these.
+  */
+
+  /* Core brand (red/white) */
+  --color-primary: #dc2626;        /* red-600 */
+  --color-primary-hover: #b91c1c;  /* red-700 */
+  --color-primary-soft: #fee2e2;   /* red-100 */
+  --color-on-primary: #ffffff;     /* white */
+
+  /* Surfaces (white-forward UI) */
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f9fafb; /* gray-50 */
+
+  /* Text */
+  --color-text: #111827;          /* gray-900 */
+  --color-text-muted: #6b7280;    /* gray-500 */
+
+  /* Borders / rings */
+  --color-border: #fecaca;        /* red-200 */
+  --color-ring: rgba(220, 38, 38, 0.35);
+
+  /* Shadows */
+  --shadow-card: 0 10px 30px rgba(17, 24, 39, 0.08);
+}
