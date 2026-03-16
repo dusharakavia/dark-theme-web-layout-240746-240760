@@ -1,0 +1,402 @@
+/* ==========================================================================
+   Theme tokens (theme-ready)
+   - Override these variables (e.g. via [data-theme="light"]) to re-theme.
+   - Keep tokens semantic (what the color means) rather than literal (what it is).
+   ========================================================================== */
+
+:root {
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Spacing (8pt-ish scale) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* Radii */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999px;
+
+  /* Elevation + borders */
+  --border-subtle: 1px solid rgba(255, 255, 255, 0.08);
+  --shadow-sm: 0 1px 0 rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 120ms;
+  --dur-2: 180ms;
+
+  /* Core colors (dark default) */
+  --bg: #0b1220;
+  --bg-elevated: #0f1a2b;
+  --surface: #0f1a2b;
+  --surface-2: #111f36;
+
+  --text: rgba(255, 255, 255, 0.92);
+  --text-muted: rgba(255, 255, 255, 0.7);
+
+  --primary: #3b82f6; /* accent */
+  --success: #06b6d4; /* secondary accent */
+  --danger: #ef4444;
+
+  --focus: rgba(59, 130, 246, 0.55);
+
+  /* Component tokens */
+  --container-max: 72rem;
+  --header-height: 4rem;
+
+  --btn-height: 2.75rem;
+  --btn-font-weight: 600;
+
+  /* Background effects */
+  --bg-gradient: radial-gradient(1200px 600px at 10% -10%, rgba(59, 130, 246, 0.25), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(6, 182, 212, 0.18), transparent 55%),
+    radial-gradient(700px 450px at 40% 120%, rgba(255, 255, 255, 0.06), transparent 60%),
+    linear-gradient(180deg, #070b14 0%, #0b1220 65%, #0b1220 100%);
+
+  color-scheme: dark;
+}
+
+/* Optional future light theme support.
+   To enable, set e.g. <html data-theme="light"> and override tokens here. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f8fafc;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+
+  --text: rgba(15, 23, 42, 0.92);
+  --text-muted: rgba(15, 23, 42, 0.72);
+
+  --border-subtle: 1px solid rgba(15, 23, 42, 0.1);
+  --shadow-sm: 0 1px 0 rgba(15, 23, 42, 0.06), 0 12px 30px rgba(15, 23, 42, 0.12);
+
+  --bg-gradient: radial-gradient(1200px 600px at 10% -10%, rgba(59, 130, 246, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(6, 182, 212, 0.14), transparent 55%),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 70%, #f8fafc 100%);
+}
+
+/* ==========================================================================
+   Base styles
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  background: var(--bg-gradient);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link {
+  color: var(--text-muted);
+  font-weight: 600;
+  transition: color var(--dur-1) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   App layout
+   ========================================================================== */
+
+#app {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: var(--header-height) 1fr auto;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(to bottom, rgba(11, 18, 32, 0.85), rgba(11, 18, 32, 0.55));
+  border-bottom: var(--border-subtle);
+}
+
+.header-inner {
+  height: var(--header-height);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 12rem;
+}
+
+.brand-mark {
+  width: 14px;
+  height: 14px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--primary), var(--success));
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.brand-name {
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.app-main {
+  max-width: var(--container-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-10) var(--space-6) var(--space-12);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero {
+  padding-top: var(--space-2);
+}
+
+.title {
+  margin: 0 0 var(--space-3);
+  font-size: clamp(2rem, 3vw, 2.65rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0 0 var(--space-6);
+  max-width: 55ch;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ==========================================================================
+   Card
+   ========================================================================== */
+
+.card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 48%), var(--surface);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 1.75rem;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-pill);
+  border: var(--border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.card-body {
+  margin: 0 0 var(--space-6);
+  color: var(--text-muted);
+}
+
+.card-footer {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   Buttons (token-driven)
+   ========================================================================== */
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  height: var(--btn-height);
+  padding: 0 var(--space-5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: inherit;
+  font-weight: var(--btn-font-weight);
+  cursor: pointer;
+  user-select: none;
+  transition: transform var(--dur-1) var(--ease-out), background-color var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+  color: var(--text);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 1), rgba(6, 182, 212, 0.9));
+  box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.18);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.btn-small {
+  height: 2.35rem;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.app-footer {
+  border-top: var(--border-subtle);
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.footer-text {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-6);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Minimal toast (JS helper)
+   ========================================================================== */
+
+.toast-host {
+  position: fixed;
+  right: var(--space-6);
+  bottom: var(--space-6);
+  display: grid;
+  gap: var(--space-2);
+  z-index: 50;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border: var(--border-subtle);
+  background: rgba(15, 26, 43, 0.92);
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  font-weight: 650;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

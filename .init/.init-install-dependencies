@@ -1,0 +1,4 @@
+{
+    "command": "npm install",
+    "working_directory": "/tmp/kavia/workspace/code-generation/dark-theme-web-layout-240746-240760/simple_dark_theme_frontend"
+}
